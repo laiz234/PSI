@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace psi_project.Models
+namespace WebAppProjeto01G1.Models
 {
     public class Categoria
     {

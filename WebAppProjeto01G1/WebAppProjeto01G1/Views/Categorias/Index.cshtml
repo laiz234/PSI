@@ -1,4 +1,4 @@
-﻿@model IEnumerable<psi_project.Models.Categoria>
+﻿@model IEnumerable<WebAppProjeto01G1.Models.Categoria>
 
 @{
     Layout = null;
@@ -9,16 +9,11 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>index</title>
-    <style>
-        p{
-            border-bottom: 2px;
-        }
-    </style>
+    <title>Index</title>
 </head>
 <body>
     <p>
-        @Html.ActionLink("Criar categoria", "Create")
+        @Html.ActionLink("Criar Categoria", "Create")
     </p>
     <table class="table">
         <tr>
@@ -35,8 +30,8 @@
             </td>
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id=item.CategoriaId }) |
-                @Html.ActionLink("Detalhar", "Details", new { id=item.CategoriaId }) |
-                @Html.ActionLink("Apagar", "Delete", new { id=item.CategoriaId })
+                @Html.ActionLink("Detalhes", "Details", new { id=item.CategoriaId }) |
+                @Html.ActionLink("Excluir", "Delete", new { id=item.CategoriaId })
             </td>
         </tr>
     }
