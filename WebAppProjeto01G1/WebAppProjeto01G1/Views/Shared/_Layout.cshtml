@@ -3,18 +3,19 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <charset="utf-8" />
+    <charset ="utf-8" />
     <title>@ViewBag.Title</title>
     <link href="@Url.Content("~/content/bootstrap.css")" rel="stylesheet" />
+    @RenderSection("styles", false)
 </head>
 <body>
     <div>
         <div class="container">
             <div class="row">
-                <div class="page-header bg-danger">
+                <div class="page-header ">
                     <h1>
                         Desenvolvimento em ASP.NET MVC
-                        <small class="text-danger">
+                        <small>
                             Utilizando o Bootstrap
                         </small>
                     </h1>
@@ -45,6 +46,7 @@
         </div>
         <script src="@Url.Content("~/scripts/jquery-1.10.2.js")"></script>
         <script src="@Url.Content("~/scripts/bootstrap.js")"></script>
+        @RenderSection("ScriptPage", false);
     </div>
 </body>
 </html>
