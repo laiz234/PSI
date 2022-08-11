@@ -31,7 +31,7 @@ namespace WebAppProjeto01G1.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Produto produto = context.Produtos.Where(p => p.ProdutoId == id).
-            Include(c => c.Categoria).Include(f => f.Fabricante).First();
+                Include(c => c.Categoria).Include(f => f.Fabricante).First();
             if (produto == null)
             {
                 return HttpNotFound();
@@ -114,7 +114,8 @@ namespace WebAppProjeto01G1.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Produto produto = context.Produtos.Where(p => p.ProdutoId == id).
-            Include(c => c.Categoria).Include(f => f.Fabricante).First();
+                Include(c => c.Categoria).Include(f => f.Fabricante).First();
+
             if (produto == null)
             {
                 return HttpNotFound();
