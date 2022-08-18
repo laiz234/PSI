@@ -70,12 +70,13 @@ namespace WebAppProjeto01G1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Categoria categorias = context.Categorias.Find(id);
-            if (categorias == null)
+            Categoria categoria = context.Categorias.Where(p => p.CategoriaId == id).
+                Include("Produtos.Fabricante").First();
+            if (categoria == null)
             {
                 return HttpNotFound();
             }
-            return View(categorias);
+            return View(categoria);
         }
 
         [HttpGet]
