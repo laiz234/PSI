@@ -9,7 +9,8 @@ using System.Data.OleDb;
 using System.Net;
 using System.Data.Entity;
 
-namespace WebAppProjeto01G1.Controllers
+namespace Modelo.Cadastros
+
 {
     public class FabricantesController : Controller
     {

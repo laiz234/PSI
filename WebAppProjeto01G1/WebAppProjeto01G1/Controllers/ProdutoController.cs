@@ -7,7 +7,7 @@ using WebAppProjeto01G1.Models;
 using System.Data.Entity;
 using System.Net;
 
-namespace WebAppProjeto01G1.Controllers
+namespace Modelo.Cadastros
 {
     public class ProdutoController : Controller
     {
