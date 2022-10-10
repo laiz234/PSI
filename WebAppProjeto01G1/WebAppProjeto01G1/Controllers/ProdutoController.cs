@@ -6,20 +6,20 @@ using System.Web.Mvc;
 using WebAppProjeto01G1.Models;
 using System.Data.Entity;
 using System.Net;
+using Modelo.Cadastros;
+using Modelo.Tabelas;
 
-namespace Modelo.Cadastros
+namespace WebAppProjeto01G1.Controllers
 {
-    public class ProdutoController : Controller
+    public class ProdutosController : Controller
     {
         private EFContext context = new EFContext();
-        private Produto produto;
-
-        // GET: Produtos
+        // GET: ProdutosController
         public ActionResult Index()
         {
             var produtos =
-                context.Produtos.Include(c => c.Categoria).Include(f => f.Fabricante).
-                OrderBy(n => n.Nome);
+            context.Produtos.Include(c => c.Categoria).Include(f => f.Fabricante).
+            OrderBy(n => n.Nome);
             return View(produtos);
         }
 
@@ -31,7 +31,7 @@ namespace Modelo.Cadastros
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Produto produto = context.Produtos.Where(p => p.ProdutoId == id).
-                Include(c => c.Categoria).Include(f => f.Fabricante).First();
+            Include(c => c.Categoria).Include(f => f.Fabricante).First();
             if (produto == null)
             {
                 return HttpNotFound();
@@ -39,24 +39,23 @@ namespace Modelo.Cadastros
             return View(produto);
         }
 
-        // GET: Produto/Create
+        // GET: ProdutosController/Create
         public ActionResult Create()
         {
-            ViewBag.CategoriaId = new SelectList(context.Categorias.OrderBy(b => b.Nome),
-              "CategoriaId", "Nome");
+            ViewBag.CategoriaId = new SelectList(context.Categorias.OrderBy(b => b.Nome), "CategoriaId", "Nome");
             ViewBag.FabricanteId = new SelectList(context.Fabricantes.OrderBy(b => b.Nome),
-              "FabricanteId", "Nome");
-
+            "FabricanteId", "Nome");
             return View();
         }
 
-        // POST: Produtos/Create
+        // POST: ProdutosController/Create
         [HttpPost]
         public ActionResult Create(Produto produto)
         {
             try
             {
                 // TODO: Add insert logic here
+
                 context.Produtos.Add(produto);
                 context.SaveChanges();
                 return RedirectToAction("Index");
@@ -67,7 +66,7 @@ namespace Modelo.Cadastros
             }
         }
 
-        // GET: Produto/Edit/5
+        // GET: ProdutosController/Edit/5
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -86,27 +85,23 @@ namespace Modelo.Cadastros
             return View(produto);
         }
 
-        // POST: Produto/Edit/5
+        // POST: ProdutosController/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    context.Entry(produto).State = EntityState.Modified;
-                    context.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                return View(produto);
+                // TODO: Add update logic here
+
+                return RedirectToAction("Index");
             }
             catch
             {
-                return View(produto);
+                return View();
             }
         }
 
-        // GET: Produto/Delete/5
+        // GET: Produtos/Delete/5
         public ActionResult Delete(long? id)
         {
             if (id == null)
@@ -114,16 +109,16 @@ namespace Modelo.Cadastros
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Produto produto = context.Produtos.Where(p => p.ProdutoId == id).
-                Include(c => c.Categoria).Include(f => f.Fabricante).First();
-
+            Include(c => c.Categoria).Include(f => f.Fabricante).First();
             if (produto == null)
+
             {
                 return HttpNotFound();
             }
             return View(produto);
         }
 
-        // POST: Produto/Delete/5
+        // POST: Produtos/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
@@ -140,5 +135,7 @@ namespace Modelo.Cadastros
                 return View();
             }
         }
+
+
     }
 }

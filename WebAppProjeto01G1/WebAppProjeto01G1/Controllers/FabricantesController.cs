@@ -8,31 +8,42 @@ using System.Data;
 using System.Data.OleDb;
 using System.Net;
 using System.Data.Entity;
+using Modelo.Cadastros;
+using Modelo.Tabelas;
 
-namespace Modelo.Cadastros
-
+namespace WebAppProjeto01G1.Controllers
 {
     public class FabricantesController : Controller
     {
         private EFContext context = new EFContext();
 
+        /*private static IList<Fabricante> fabricantes = new List<Fabricante>()
+        {
+            new Fabricante() { FabricanteId = 1, Nome = "LG"},
+            new Fabricante() { FabricanteId = 2, Nome = "Microsoft"}
+        };*/
+
+        // GET: Fabricantes
         public ActionResult Index()
         {
             //return View(fabricantes);
             return View(context.Fabricantes.OrderBy(c => c.Nome));
         }
+
         // GET: Create
         [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
-        
+
         // POST: Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Fabricante fabricante)
         {
+            //fabricantes.Add(fabricante);
+            //fabricante.FabricanteId = fabricantes.Select(m => m.FabricanteId).Max() + 1;
             context.Fabricantes.Add(fabricante);
             context.SaveChanges();
             return RedirectToAction("Index");
@@ -44,10 +55,11 @@ namespace Modelo.Cadastros
         {
             if (id == null)
             {
-            
+                //return RedirectToAction("PaginaErro");
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Fabricante fabricante = context.Fabricantes.Find(id);
+            //Fabricante fabricante = fabricantes.Where(m => m.FabricanteId == id).First();
             if (fabricante == null)
             {
                 return HttpNotFound();
@@ -62,6 +74,9 @@ namespace Modelo.Cadastros
         {
             if (ModelState.IsValid)
             {
+                //fabricantes.Remove(
+                //fabricantes.Where(c => c.FabricanteId == fabricante.FabricanteId).First());
+                //fabricantes.Add(fabricante);
                 context.Entry(fabricante).State = EntityState.Modified;
                 context.SaveChanges();
                 return RedirectToAction("Index");
@@ -77,8 +92,9 @@ namespace Modelo.Cadastros
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Fabricante fabricante = context.Fabricantes.Where(f => f.FabricanteId == id).
-                Include("Produtos.Categoria").First();
-            if (fabricante == null) {
+            Include("Produtos.Categoria").First();
+            if (fabricante == null)
+            {
                 return HttpNotFound();
             }
             return View(fabricante);
@@ -94,6 +110,7 @@ namespace Modelo.Cadastros
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Fabricante fabricante = context.Fabricantes.Find(id);
+            //Fabricante fabricante = fabricantes.Where(m => m.FabricanteId == id).First();
             if (fabricante == null)
             {
                 return HttpNotFound();
@@ -106,11 +123,12 @@ namespace Modelo.Cadastros
         [ValidateAntiForgeryToken]
         public ActionResult Delete(long id)
         {
+            //Fabricante fabricante = fabricantes.Where(c => c.FabricanteId == id).First();
+            //fabricantes.Remove(fabricante);
             Fabricante fabricante = context.Fabricantes.Find(id);
             context.Fabricantes.Remove(fabricante);
             context.SaveChanges();
-            TempData["Message"] = "Fabricante " + 
-              fabricante.Nome.ToUpper() + " foi removido";
+            TempData["Message"] = "Fabricante " + fabricante.Nome.ToUpper() + " foi removido";
             return RedirectToAction("Index");
         }
 
