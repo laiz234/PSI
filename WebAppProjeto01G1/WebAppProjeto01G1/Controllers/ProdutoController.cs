@@ -8,18 +8,24 @@ using System.Data.Entity;
 using System.Net;
 using Modelo.Cadastros;
 using Modelo.Tabelas;
+using Serviço.Cadastros;
+using Serviço.Tabelas;
 
 namespace WebAppProjeto01G1.Controllers
 {
     public class ProdutosController : Controller
     {
-        private EFContext context = new EFContext();
+        //private EFContext context = new EFContext();
+        private ProdutoServico produtoServico = new ProdutoServico();
+        private CategoriaServico categoriaServico = new CategoriaServico();
+        private FabricanteServico fabricanteServico = new FabricanteServico();
+
         // GET: ProdutosController
         public ActionResult Index()
         {
-            var produtos =
-            context.Produtos.Include(c => c.Categoria).Include(f => f.Fabricante).
-            OrderBy(n => n.Nome);
+            //var produtos = context.Produtos.Include(c => c.Categoria).Include(f => f.Fabricante).
+            //OrderBy(n => n.Nome);
+            var produtos = produtoServico.ObterProdutosClassificadosPorNome();
             return View(produtos);
         }
 
@@ -30,8 +36,8 @@ namespace WebAppProjeto01G1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Produto produto = context.Produtos.Where(p => p.ProdutoId == id).
-            Include(c => c.Categoria).Include(f => f.Fabricante).First();
+            //Produto produto = context.Produtos.Where(p => p.ProdutoId == id).Include(c => c.Categoria).Include(f => f.Fabricante).First();
+            Produto produto = produtoServico.ObterProdutoPorId((long)id);
             if (produto == null)
             {
                 return HttpNotFound();
@@ -42,9 +48,10 @@ namespace WebAppProjeto01G1.Controllers
         // GET: ProdutosController/Create
         public ActionResult Create()
         {
-            ViewBag.CategoriaId = new SelectList(context.Categorias.OrderBy(b => b.Nome), "CategoriaId", "Nome");
-            ViewBag.FabricanteId = new SelectList(context.Fabricantes.OrderBy(b => b.Nome),
-            "FabricanteId", "Nome");
+            //ViewBag.CategoriaId = new SelectList(context.Categorias.OrderBy(b => b.Nome), "CategoriaId", "Nome");
+            // ViewBag.FabricanteId = new SelectList(context.Fabricantes.OrderBy(b => b.Nome),"FabricanteId", "Nome");
+            ViewBag.CategoriaId = new SelectList(categoriaServico.ObterCategoriasClassificadasPorNome(),"CategoriaId", "Nome");
+            ViewBag.FabricanteId = new SelectList(fabricanteServico.ObterFabricantesClassificadasPorNome(), "FabricanteId", "Nome");
             return View();
         }
 
@@ -73,15 +80,14 @@ namespace WebAppProjeto01G1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Produto produto = context.Produtos.Find(id);
+            //Produto produto = context.Produtos.Find(id);
+            Produto produto = produtoServico.ObterProdutoPorId((long)id);
             if (produto == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CategoriaId = new SelectList(context.Categorias.OrderBy(b => b.Nome), "CategoriaId",
-            "Nome", produto.CategoriaId);
-            ViewBag.FabricanteId = new SelectList(context.Fabricantes.OrderBy(b => b.Nome), "FabricanteId",
-            "Nome", produto.FabricanteId);
+            //ViewBag.CategoriaId = new SelectList(context.Categorias.OrderBy(b => b.Nome), "CategoriaId","Nome", produto.CategoriaId);
+            //ViewBag.FabricanteId = new SelectList(context.Fabricantes.OrderBy(b => b.Nome), "FabricanteId","Nome", produto.FabricanteId);
             return View(produto);
         }
 
@@ -108,8 +114,8 @@ namespace WebAppProjeto01G1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Produto produto = context.Produtos.Where(p => p.ProdutoId == id).
-            Include(c => c.Categoria).Include(f => f.Fabricante).First();
+            //Produto produto = context.Produtos.Where(p => p.ProdutoId == id).Include(c => c.Categoria).Include(f => f.Fabricante).First();
+            Produto produto = produtoServico.ObterProdutoPorId((long)id);
             if (produto == null)
 
             {
