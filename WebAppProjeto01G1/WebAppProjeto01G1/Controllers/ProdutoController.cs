@@ -23,8 +23,6 @@ namespace WebAppProjeto01G1.Controllers
         // GET: ProdutosController
         public ActionResult Index()
         {
-            //var produtos = context.Produtos.Include(c => c.Categoria).Include(f => f.Fabricante).
-            //OrderBy(n => n.Nome);
             var produtos = produtoServico.ObterProdutosClassificadosPorNome();
             return View(produtos);
         }
@@ -46,19 +44,7 @@ namespace WebAppProjeto01G1.Controllers
         [HttpPost]
         public ActionResult Create(Produto produto)
         {
-            try
-            {
-                // TODO: Add insert logic here
-
-                //context.Produtos.Add(produto);
-                //context.SaveChanges();
-                produtoServico.GravarProduto(produto);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View(produto);
-            }
+            return GravarProduto(produto);
         }
 
         // GET: ProdutosController/Edit/5
@@ -72,16 +58,7 @@ namespace WebAppProjeto01G1.Controllers
         [HttpPost]
         public ActionResult Edit(Produto produto)
         {
-            try
-            {
-                // TODO: Add update logic here
-                produtoServico.GravarProduto(produto);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return GravarProduto(produto);
         }
 
         // GET: Produtos/Delete/5
@@ -96,9 +73,6 @@ namespace WebAppProjeto01G1.Controllers
         {
             try
             {
-                //Produto produto = context.Produtos.Find(id);
-                //context.Produtos.Remove(produto);
-                //context.SaveChanges();
                 Produto produto = produtoServico.EliminarProdutoPorId(id);
                 TempData["Message"] = "Produto " + produto.Nome.ToUpper() + " foi removido";
                 return RedirectToAction("Index");
@@ -137,6 +111,23 @@ namespace WebAppProjeto01G1.Controllers
                 "CategoriaId", "Nome", produto.CategoriaId);
                 ViewBag.FabricanteId = new SelectList(fabricanteServico.ObterFabricantesClassificadosPorNome(),
                 "FabricanteId", "Nome", produto.FabricanteId);
+            }
+        }
+        // Metodo Privado
+        private ActionResult GravarProduto(Produto produto)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    produtoServico.GravarProduto(produto);
+                    return RedirectToAction("Index");
+                }
+                return View(produto);
+            }
+            catch
+            {
+                return View(produto);
             }
         }
     }
