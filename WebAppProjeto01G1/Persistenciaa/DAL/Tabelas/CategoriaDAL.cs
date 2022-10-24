@@ -40,5 +40,6 @@ namespace Persistenciaa.DAL.Tabelas
             context.SaveChanges();
             return categoria;
         }
+
     }
 }
