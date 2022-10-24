@@ -31,9 +31,5 @@ namespace Serviço.Tabelas
             return categoria;
         }
 
-        public Categoria ObterFabricantePorId(long id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

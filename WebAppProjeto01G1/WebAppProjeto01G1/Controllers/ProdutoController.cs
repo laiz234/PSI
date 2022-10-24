@@ -13,7 +13,7 @@ using Serviço.Tabelas;
 
 namespace WebAppProjeto01G1.Controllers
 {
-    public class ProdutosController : Controller
+    public class ProdutoController : Controller
     {
         //private EFContext context = new EFContext();
         private ProdutoServico produtoServico = new ProdutoServico();
