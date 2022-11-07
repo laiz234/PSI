@@ -100,17 +100,13 @@ namespace WebAppProjeto01G1.Controllers
         {
             if (produto == null)
             {
-                ViewBag.CategoriaId = new SelectList(categoriaServico.ObterCategoriasClassificadasPorNome(),
-                "CategoriaId", "Nome");
-                ViewBag.FabricanteId = new SelectList(fabricanteServico.ObterFabricantesClassificadosPorNome(),
-                "FabricanteId", "Nome");
+                ViewBag.CategoriaId = new SelectList(categoriaServico.ObterCategoriasClassificadasPorNome(),"CategoriaId", "Nome");
+                ViewBag.FabricanteId = new SelectList(fabricanteServico.ObterFabricantesClassificadosPorNome(),"FabricanteId", "Nome");
             }
             else
             {
-                ViewBag.CategoriaId = new SelectList(categoriaServico.ObterCategoriasClassificadasPorNome(),
-                "CategoriaId", "Nome", produto.CategoriaId);
-                ViewBag.FabricanteId = new SelectList(fabricanteServico.ObterFabricantesClassificadosPorNome(),
-                "FabricanteId", "Nome", produto.FabricanteId);
+                ViewBag.CategoriaId = new SelectList(categoriaServico.ObterCategoriasClassificadasPorNome(),"CategoriaId", "Nome", produto.CategoriaId);
+                ViewBag.FabricanteId = new SelectList(fabricanteServico.ObterFabricantesClassificadosPorNome(),"FabricanteId", "Nome", produto.FabricanteId);
             }
         }
         // Metodo Privado
@@ -120,9 +116,10 @@ namespace WebAppProjeto01G1.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    produtoServico.GravarProduto(produto);
-                    return RedirectToAction("Index");
+                  produtoServico.GravarProduto(produto);
+                  return RedirectToAction("Index");
                 }
+                PopularViewBag(produto);
                 return View(produto);
             }
             catch
