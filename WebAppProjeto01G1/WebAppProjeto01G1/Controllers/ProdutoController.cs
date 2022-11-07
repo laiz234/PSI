@@ -56,9 +56,9 @@ namespace WebAppProjeto01G1.Controllers
 
         // POST: ProdutosController/Edit/5
         [HttpPost]
-        public ActionResult Edit(Produto produto)
+        public ActionResult Edit(Produto produto, HttpPostedFileBase logotipo = null, string chkRemoverImagem = null)
         {
-            return GravarProduto(produto);
+            return GravarProduto(produto, logotipo, chkRemoverImagem);
         }
 
         // GET: Produtos/Delete/5
@@ -110,22 +110,38 @@ namespace WebAppProjeto01G1.Controllers
             }
         }
         // Metodo Privado
-        private ActionResult GravarProduto(Produto produto)
+        private ActionResult GravarProduto(Produto produto, HttpPostedFileBase logotipo, string chkRemoverImagem)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                  produtoServico.GravarProduto(produto);
-                  return RedirectToAction("Index");
+                    if (chkRemoverImagem != null)
+                    {
+                        produto.Logotipo = null;
+                    }
+                    if (logotipo != null)
+                    {
+                        produto.LogotipoMimeType = logotipo.ContentType;
+                        produto.Logotipo = SetLogotipo(logotipo);
+                    }
+                    produtoServico.GravarProduto(produto);
+                    return RedirectToAction("Index");
                 }
                 PopularViewBag(produto);
                 return View(produto);
             }
             catch
             {
+                PopularViewBag(produto);
                 return View(produto);
             }
+        }
+        private byte[] SetLogotipo(HttpPostedFileBase logotipo)
+        {
+            var bytesLogotipo = new byte[logotipo.ContentLength];
+            logotipo.InputStream.Read(bytesLogotipo, 0, logotipo.ContentLength);
+            return bytesLogotipo;
         }
     }
 }
