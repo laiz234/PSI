@@ -55,7 +55,7 @@ namespace WebAppProjeto01G1.Controllers
         }
 
         // POST: ProdutosController/Edit/5
-        [HttpPost]
+        /*[HttpPost]
         public ActionResult Edit(Produto produto, HttpPostedFileBase logotipo = null, string chkRemoverImagem = null)
         {
             return GravarProduto(produto, logotipo, chkRemoverImagem);
@@ -65,6 +65,62 @@ namespace WebAppProjeto01G1.Controllers
         public ActionResult Delete(long? id)
         {
             return ObterVisaoProdutoPorId(id);
+        }*/
+
+        // Metodo Privado
+        private void PopularViewBag(Produto produto = null)
+        {
+            if (produto == null)
+            {
+                ViewBag.CategoriaId = new SelectList(categoriaServico.ObterCategoriasClassificadasPorNome(), "CategoriaId", "Nome");
+                ViewBag.FabricanteId = new SelectList(fabricanteServico.ObterFabricantesClassificadosPorNome(), "FabricanteId", "Nome");
+            }
+            else
+            {
+                ViewBag.CategoriaId = new SelectList(categoriaServico.ObterCategoriasClassificadasPorNome(), "CategoriaId", "Nome", produto.CategoriaId);
+                ViewBag.FabricanteId = new SelectList(fabricanteServico.ObterFabricantesClassificadosPorNome(), "FabricanteId", "Nome", produto.FabricanteId);
+            }
+        }
+
+        private byte[] SetLogotipo(HttpPostedFileBase logotipo)
+        {
+            var bytesLogotipo = new byte[logotipo.ContentLength];
+            logotipo.InputStream.Read(bytesLogotipo, 0, logotipo.ContentLength);
+            return bytesLogotipo;
+        }
+
+        private ActionResult GravarProduto(Produto produto, HttpPostedFileBase logotipo, string chkRemoverImagem)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (chkRemoverImagem != null)
+                    {
+                        produto.Logotipo = null;
+                    }
+                    if (logotipo != null)
+                    {
+                        produto.LogotipoMimeType = logotipo.ContentType;
+                        produto.Logotipo = SetLogotipo(logotipo);
+                    }
+                    produtoServico.GravarProduto(produto);
+                    return RedirectToAction("Index");
+                }
+                PopularViewBag(produto);
+                return View(produto);
+            }
+            catch
+            {
+                PopularViewBag(produto);
+                return View(produto);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Produto produto, HttpPostedFileBase logotipo = null, string chkRemoverImagem = null)
+        {
+            return GravarProduto(produto, logotipo, chkRemoverImagem);
         }
 
         // POST: Produtos/Delete/5
@@ -95,36 +151,12 @@ namespace WebAppProjeto01G1.Controllers
             }
             return View(produto);
         }
-        // Metodo Privado
-        private void PopularViewBag(Produto produto = null)
-        {
-            if (produto == null)
-            {
-                ViewBag.CategoriaId = new SelectList(categoriaServico.ObterCategoriasClassificadasPorNome(),"CategoriaId", "Nome");
-                ViewBag.FabricanteId = new SelectList(fabricanteServico.ObterFabricantesClassificadosPorNome(),"FabricanteId", "Nome");
-            }
-            else
-            {
-                ViewBag.CategoriaId = new SelectList(categoriaServico.ObterCategoriasClassificadasPorNome(),"CategoriaId", "Nome", produto.CategoriaId);
-                ViewBag.FabricanteId = new SelectList(fabricanteServico.ObterFabricantesClassificadosPorNome(),"FabricanteId", "Nome", produto.FabricanteId);
-            }
-        }
-        // Metodo Privado
-        private ActionResult GravarProduto(Produto produto, HttpPostedFileBase logotipo, string chkRemoverImagem)
+        private ActionResult GravarProduto(Produto produto)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    if (chkRemoverImagem != null)
-                    {
-                        produto.Logotipo = null;
-                    }
-                    if (logotipo != null)
-                    {
-                        produto.LogotipoMimeType = logotipo.ContentType;
-                        produto.Logotipo = SetLogotipo(logotipo);
-                    }
                     produtoServico.GravarProduto(produto);
                     return RedirectToAction("Index");
                 }
@@ -133,15 +165,9 @@ namespace WebAppProjeto01G1.Controllers
             }
             catch
             {
-                PopularViewBag(produto);
+
                 return View(produto);
             }
         }
-        private byte[] SetLogotipo(HttpPostedFileBase logotipo)
-        {
-            var bytesLogotipo = new byte[logotipo.ContentLength];
-            logotipo.InputStream.Read(bytesLogotipo, 0, logotipo.ContentLength);
-            return bytesLogotipo;
-        }
-    }
+    }  
 }
