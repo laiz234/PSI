@@ -28,6 +28,8 @@ namespace Modelo.Cadastros
         public byte[] Logotipo { get; set; }
         public Categoria Categoria { get; set; }
         public Fabricante Fabricante { get; set; }
+        public string NomeArquivo { get; set; }
+        public string TamanhoArquivo { get; set; }
 
     }
 }

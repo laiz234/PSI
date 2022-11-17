@@ -10,6 +10,7 @@ using Modelo.Cadastros;
 using Modelo.Tabelas;
 using Serviço.Cadastros;
 using Serviço.Tabelas;
+using System.IO;
 
 namespace WebAppProjeto01G1.Controllers
 {
@@ -81,7 +82,15 @@ namespace WebAppProjeto01G1.Controllers
                 ViewBag.FabricanteId = new SelectList(fabricanteServico.ObterFabricantesClassificadosPorNome(), "FabricanteId", "Nome", produto.FabricanteId);
             }
         }
-
+        public FileContentResult GetLogotipo(long id)
+        {
+            Produto produto = produtoServico.ObterProdutoPorId(id);
+            if (produto != null)
+            {
+                return File(produto.Logotipo, produto.LogotipoMimeType);
+            }
+            return null;
+        }
         private byte[] SetLogotipo(HttpPostedFileBase logotipo)
         {
             var bytesLogotipo = new byte[logotipo.ContentLength];
@@ -103,6 +112,8 @@ namespace WebAppProjeto01G1.Controllers
                     {
                         produto.LogotipoMimeType = logotipo.ContentType;
                         produto.Logotipo = SetLogotipo(logotipo);
+                        produto.NomeArquivo = logotipo.FileName;
+                        produto.TamanhoArquivo = logotipo.ContentType;
                     }
                     produtoServico.GravarProduto(produto);
                     return RedirectToAction("Index");
@@ -168,6 +179,17 @@ namespace WebAppProjeto01G1.Controllers
 
                 return View(produto);
             }
+        }
+        public ActionResult DownloadArquivo(long id)
+        {
+            Produto produto = produtoServico.ObterProdutoPorId(id);
+            FileStream fileStream = new FileStream(Server.MapPath(
+            "~/App_Data/" + produto.NomeArquivo), FileMode.Create,
+            FileAccess.Write);
+            fileStream.Write(produto.Logotipo, 0,
+            Convert.ToInt32(produto.TamanhoArquivo));
+            fileStream.Close();
+            return File(fileStream.Name, produto.LogotipoMimeType, produto.NomeArquivo);
         }
     }  
 }
