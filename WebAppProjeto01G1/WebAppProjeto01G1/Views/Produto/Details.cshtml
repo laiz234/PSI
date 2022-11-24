@@ -8,7 +8,7 @@
         Visualizando detalhes de um PRODUTO
     </div>
     <div class="panel-body">
-        @Html.Partial("~/Views/Produtos/_PartialDetailsContentPanel.cshtml", Model)
+        @Html.Partial("~/Views/Produto/_PartialDetailsContentPanel.cshtml", Model)
     </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Categoria.Nome)<br />
@@ -43,7 +43,7 @@
         @Html.ActionLink("Retornar para a listagem", "Index", null,
         new { @class = "btn btn-info" })
     </div>
-</div>
+
 @section ScriptPage {
     <script type="text/javascript">
         $(document).ready(function () {

@@ -12,9 +12,7 @@
         </div>
         <div class="panel-body">
             @Html.Partial("~/Views/Produto/_PartialEditContentPanel.cshtml", Model)
-            <div class="form-horizontal">
-                <h4>Produto</h4>
-                <hr />
+
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.ProdutoId)
                 @Html.HiddenFor(model => model.LogotipoMimeType)
@@ -34,8 +32,7 @@
                         {
                             <div class="panel-body">
                                 <img class="" img-thumbnail"
-                                     src="@Url.Action("GetLogotipo", "Produtos",
-                                     new { id = Model.ProdutoId })"
+                                     src="@Url.Action("GetLogotipo2", "Produtos", new { id = Model.ProdutoId })"
                                      style="display:block;
                                      margin-left:auto; margin-right:auto;" />
                             </div>
@@ -46,7 +43,7 @@
                                                value="Sim">Remover imagem
                                     </label>
                                 </div>
-                                @Html.ActionLink("Baixar o arquivo : " + Model.NomeArquivo, "DownloadArquivo", "Produto", new { area = "Cadastros", id = Model.ProdutoId }, null)
+                                @Html.ActionLink("Baixar o arquivo : " + Model.NomeArquivo, "DownloadArquivo", "DownloadArquivo2", "Produto", new { area = "Cadastros", id = Model.ProdutoId }, null)
                             </div>
                         }
 
@@ -58,7 +55,6 @@
                             </div>
                         </div>
                 </div>
-            </div>
          </div>
 }
 @section ScriptPage {
