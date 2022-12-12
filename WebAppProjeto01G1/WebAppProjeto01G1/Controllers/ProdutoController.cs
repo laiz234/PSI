@@ -162,7 +162,7 @@ namespace WebAppProjeto01G1.Controllers
                         produto.NomeArquivo = logotipo.FileName;
                         produto.TamanhoArquivo = logotipo.ContentLength;
 
-                        strFileName = Server.MapPath("~/App_Data/") + Path.GetFileName(logotipo.FileName);
+                        string strFileName = Server.MapPath("~/App_Data/") + Path.GetFileName(logotipo.FileName);
 
                         logotipo.SaveAs(strFileName);
                     }
@@ -196,9 +196,7 @@ namespace WebAppProjeto01G1.Controllers
                 if (produto.NomeArquivo != null)
                 {
                     var bytesLogotipo = new byte[produto.TamanhoArquivo];
-                    FileStream fileStream = new
-                    FileStream(Server.MapPath("~/App_Data/" + produto.NomeArquivo), FileMode.Open,
-                    FileAccess.Read);
+                    FileStream fileStream = new FileStream(Server.MapPath("~/App_Data/" + produto.NomeArquivo), FileMode.Open, FileAccess.Read);
                     fileStream.Read(bytesLogotipo, 0, (int)produto.TamanhoArquivo);
                     return File(bytesLogotipo, produto.LogotipoMimeType);
                 }
