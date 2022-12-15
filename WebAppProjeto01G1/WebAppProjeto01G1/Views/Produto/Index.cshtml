@@ -44,6 +44,9 @@
                             @Html.DisplayFor(modelItem => item.Fabricante.Nome)
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => item.Destaque)
+                        </td>
+                        <td>
                             @Html.ActionLink("Alterar", "Edit", new { id = item.ProdutoId }) |
                             @Html.ActionLink("Detalhes", "Details", new { id = item.ProdutoId }) |
                             @Html.ActionLink("Eliminar", "Delete", new { id = item.ProdutoId })
