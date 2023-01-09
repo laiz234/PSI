@@ -12,7 +12,7 @@ using Serviço.Cadastros;
 using Serviço.Tabelas;
 using System.IO;
 
-namespace WebAppProjeto01G1.Controllers
+namespace WebAppProjeto01G1.Areas.Cadastros.Controllers
 {
     public class ProdutoController : Controller
     {

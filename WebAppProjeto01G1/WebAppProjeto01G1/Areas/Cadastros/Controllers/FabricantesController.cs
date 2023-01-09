@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using Modelo.Cadastros;
 using Serviço.Cadastros;
 
-namespace WebAppProjeto01G1.Controllers
+namespace WebAppProjeto01G1.Areas.Cadastros.Controllers
 {
     public class FabricantesController : Controller
     {

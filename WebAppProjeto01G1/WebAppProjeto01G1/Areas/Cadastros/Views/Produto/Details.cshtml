@@ -1,0 +1,90 @@
+﻿@model Modelo.Cadastros.Produto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Produto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Categoria.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categoria.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fabricante.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fabricante.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataCadastro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataCadastro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LogotipoMimeType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LogotipoMimeType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Logotipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Logotipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeArquivo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeArquivo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TamanhoArquivo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TamanhoArquivo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Destaque)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Destaque)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProdutoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
