@@ -1,90 +1,28 @@
 ﻿@model Modelo.Cadastros.Produto
-
 @{
-    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Visualizando os dados de um PRODUTO";
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>Produto</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Categoria.Nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Categoria.Nome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Fabricante.Nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Fabricante.Nome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DataCadastro)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DataCadastro)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LogotipoMimeType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LogotipoMimeType)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Logotipo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Logotipo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NomeArquivo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NomeArquivo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TamanhoArquivo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TamanhoArquivo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Destaque)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Destaque)
-        </dd>
-
-    </dl>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Visualizando detalhes de um PRODUTO
+    </div>
+    <div class="panel-body">
+        @Html.Partial("~/Views/Produto/_PartialDetailsContentPanel.cshtml", Model)
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ProdutoId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="panel-footer panel-info">
+    @Html.ActionLink("Alterar", "Edit", new { id = Model.ProdutoId },
+    new { @class = "btn btn-info" })
+    @Html.ActionLink("Retornar para a listagem", "Index", null,
+    new { @class = "btn btn-info" })
+</div>
+
+@section ScriptPage {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('li').removeClass("active");
+            $('#liProdutos').addClass("active");
+        });
+    </script>
+}

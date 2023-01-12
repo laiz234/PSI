@@ -4,15 +4,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Listagem de FABRICANTES";
 }
+
 @if (@TempData["Message"] != null)
 {
     <div class="alert alert-success" role="alert">
         @TempData["Message"]
     </div>
 }
+
 <div class="panel panel-primary">
     <div class="panel-heading">
-        Relação de FABRICANTES registrados
+        Relação de um NOVO FABRICANTE
     </div>
     <div class="panel-body">
         <table class="table table-striped table-hover">
@@ -59,17 +61,12 @@
     <script src="@Url.Content("~/scripts/DataTables-1.10.2/dataTables.bootstrap.js")"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-        $('.table').dataTable({ "order": [[1, "asc"]] });
-        $('li').removeClass("active");
-        $('#liFabricantes').addClass("active");
+            $('.table').dataTable({
+                "order": [[1, "asc"]]
+            });
+
+            $('li').removeClass("active");
+            $('#liFabricantes').addClass("active");
         });
     </script>
 }
-Footer
-© 2023 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Doc

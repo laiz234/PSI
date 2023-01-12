@@ -186,6 +186,11 @@
     <Content Include="Areas\Tabelas\Views\Categorias\Edit.cshtml" />
     <Content Include="Areas\Tabelas\Views\Categorias\Details.cshtml" />
     <Content Include="Areas\Tabelas\Views\Categorias\Delete.cshtml" />
+    <Content Include="Areas\Cadastros\Views\Fabricantes\_PartialDetailsContentPanel.cshtml" />
+    <Content Include="Areas\Cadastros\Views\Produto\_PartialDetailsContentPanel.cshtml" />
+    <Content Include="Areas\Cadastros\Views\Produto\_PartialEditContentPanel.cshtml" />
+    <Content Include="Areas\Cadastros\Views\Produto\_PorFabricante.cshtml" />
+    <Content Include="Areas\Cadastros\Views\Produto\_PorCategrias.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
