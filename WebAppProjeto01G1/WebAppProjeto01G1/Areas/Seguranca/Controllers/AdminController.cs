@@ -25,5 +25,9 @@ namespace WebAppProjeto01G1.Areas.Seguranca.Controllers
         {
             return View(GerenciadorUsuario.Users);
         }
+        public ActionResult Create()
+        { 
+            return View(); 
+        }
     }
 }
