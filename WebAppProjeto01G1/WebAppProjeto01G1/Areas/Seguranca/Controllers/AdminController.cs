@@ -29,5 +29,32 @@ namespace WebAppProjeto01G1.Areas.Seguranca.Controllers
         { 
             return View(); 
         }
+        private void AddErrorsFromResult(IdentityResult result)
+        {
+            foreach (string error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
+        [HttpPost]
+        public ActionResult Create(UsuarioViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Usuario user = new Usuario
+                {
+                    UserName = model.Nome,
+                    Email = model.Email
+                };
+                IdentityResult result = GerenciadorUsuario.Create(user, model.Senha);
+                if (result.Succeeded)
+                { return RedirectToAction("Index"); }
+            }
+            else
+            {
+                AddErrorsFromResult(result);
+            }
+       }
+        return View(model);
     }
 }
