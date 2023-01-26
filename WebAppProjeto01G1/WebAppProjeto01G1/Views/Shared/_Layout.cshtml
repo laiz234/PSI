@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" 
@@ -27,8 +26,8 @@
                         <li id="liHome" role="presentation" class="active">@Html.ActionLink("Home", "Index", "Home")</li>
                         <li id="liCategorias" role="presentation">@Html.ActionLink("Categorias", "Index", "Categorias")</li>
                         <li id="liFabricantes" role="presentation">@Html.ActionLink("Fabricantes", "Index", "Fabricantes")</li>
-                        <li id="liProdutos" role="presentation"> @Html.ActionLink("Produtos", "Index","Produto")
-                    </li>
+                        <li id="liProdutos" role="presentation"> @Html.ActionLink("Produtos", "Index", "Produto")</li>
+                        <li id="liUsuarios" role="presentation">@Html.ActionLink("Usuários", "Index", "Admin",new { area = "Seguranca" }, null)</li>
                     </ul>
                 </div>
                 <div class="col-xs-9 col-md-9">

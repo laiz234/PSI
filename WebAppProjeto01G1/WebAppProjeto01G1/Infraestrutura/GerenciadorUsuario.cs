@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
+using System;
 using WebAppProjeto01G1.Areas.Seguranca.Models;
 using WebAppProjeto01G1.DAL;
 
@@ -19,6 +20,11 @@ namespace WebAppProjeto01G1.Infraestrutura
             GerenciadorUsuario manager = new GerenciadorUsuario(
             new UserStore<Usuario>(db));
             return manager;
+        }
+
+        internal static Usuario FindById(string id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

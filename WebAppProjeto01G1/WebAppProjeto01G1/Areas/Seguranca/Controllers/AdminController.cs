@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNet.Identity.Owin;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using WebAppProjeto01G1.Areas.Seguranca.Models;
+using WebAppProjeto01G1.Controllers;
 using WebAppProjeto01G1.Infraestrutura;
 
 namespace WebAppProjeto01G1.Areas.Seguranca.Controllers
@@ -25,10 +29,12 @@ namespace WebAppProjeto01G1.Areas.Seguranca.Controllers
         {
             return View(GerenciadorUsuario.Users);
         }
+
         public ActionResult Create()
-        { 
-            return View(); 
+        {
+            return View();
         }
+
         private void AddErrorsFromResult(IdentityResult result)
         {
             foreach (string error in result.Errors)
@@ -49,12 +55,103 @@ namespace WebAppProjeto01G1.Areas.Seguranca.Controllers
                 IdentityResult result = GerenciadorUsuario.Create(user, model.Senha);
                 if (result.Succeeded)
                 { return RedirectToAction("Index"); }
+                else
+                {
+                    AddErrorsFromResult(result);
+                }
+            }
+            return View(model);
+        }
+
+        public ActionResult Edit(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Usuario usuario = GerenciadorUsuario.FindById(id);
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
+            // inicia o objeto usuário para visão
+            var uvm = new UsuarioViewModel();
+            uvm.Id = usuario.Id;
+            uvm.Nome = usuario.UserName;
+            uvm.Email = usuario.Email;
+            return View(uvm);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(UsuarioViewModel uvm)
+        {
+            if (ModelState.IsValid)
+            {
+                Usuario usuario = GerenciadorUsuario.FindById(uvm.Id);
+                usuario.UserName = uvm.Nome;
+                usuario.Email = uvm.Email;
+                usuario.PasswordHash = GerenciadorUsuario.PasswordHasher.
+                HashPassword(uvm.Senha);
+                IdentityResult result = GerenciadorUsuario.Update(usuario);
+                if (result.Succeeded)
+                { return RedirectToAction("Index"); }
+                else
+                { AddErrorsFromResult(result); }
+            }
+            return View(uvm);
+        }
+
+        public ActionResult Delete(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(
+                HttpStatusCode.BadRequest);
+            }
+            Usuario usuario = GerenciadorUsuario.FindById(id);
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
+            return View(usuario);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(Usuario usuario)
+        {
+            Usuario user = GerenciadorUsuario.FindById(usuario.Id);
+            if (user != null)
+            {
+                IdentityResult result = GerenciadorUsuario.Delete(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return new HttpStatusCodeResult(
+                    HttpStatusCode.BadRequest);
+                }
             }
             else
             {
-                AddErrorsFromResult(result);
+                return HttpNotFound();
             }
-       }
-        return View(model);
+        }
+
+        public ActionResult Details(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(
+                HttpStatusCode.BadRequest);
+            }
+            Usuario usuario = GerenciadorUsuario.FindById(id);
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
+            return View(usuario);
+        }
     }
 }
