@@ -11,15 +11,14 @@ namespace WebAppProjeto01G1
     {
         public void Configuration(IAppBuilder app)
         {
-            app.CreatePerOwinContext<IdentityDbContextAplicacao>
-            (IdentityDbContextAplicacao.Create);
+            app.CreatePerOwinContext<IdentityDbContextAplicacao>(IdentityDbContextAplicacao.Create);
             app.CreatePerOwinContext<GerenciadorUsuario>(GerenciadorUsuario.Create);
+            //app.CreatePerOwinContext<GerenciadorPapel>(GerenciadorPapel.Create);
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Seguranca/Account/Login"),
-            }
-            );
+            });
         }
     }
 }
