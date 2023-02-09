@@ -1,4 +1,9 @@
-﻿using WebAppProjeto01G1.Areas.Seguranca.Models;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using WebAppProjeto01G1.Areas.Seguranca.Models;
 using WebAppProjeto01G1.Infraestrutura;
 
 namespace WebAppProjeto01G1.Areas.Seguranca.Controllers

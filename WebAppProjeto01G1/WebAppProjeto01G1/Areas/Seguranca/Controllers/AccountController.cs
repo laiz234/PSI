@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.Owin.Security;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebAppProjeto01G1.Areas.Seguranca.Models;
 
 namespace WebAppProjeto01G1.Areas.Seguranca.Controllers
 {

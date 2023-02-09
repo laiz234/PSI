@@ -10,19 +10,17 @@ namespace WebAppProjeto01G1.DAL
 {
     public class IdentityDbContextAplicacao : IdentityDbContext<Usuario>
     {
-        public IdentityDbContextAplicacao() : base("IdentityDb")
-        { }
+        public IdentityDbContextAplicacao() : base("IdentityDb") { }
         static IdentityDbContextAplicacao()
         {
-            Database.SetInitializer<IdentityDbContextAplicacao>(
-            new IdentityDbInit());
+            Database.SetInitializer<IdentityDbContextAplicacao>(new IdentityDbInit());
         }
         public static IdentityDbContextAplicacao Create()
         {
             return new IdentityDbContextAplicacao();
         }
-        public class IdentityDbInit : DropCreateDatabaseIfModelChanges <IdentityDbContextAplicacao>
-        {
-        }
+
+        public System.Data.Entity.DbSet<WebAppProjeto01G1.Areas.Seguranca.Models.Papel> IdentityRoles { get; set; }
     }
+    public class IdentityDbInit : DropCreateDatabaseIfModelChanges<IdentityDbContextAplicacao> { }
 }

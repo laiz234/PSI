@@ -9,5 +9,7 @@ namespace WebAppProjeto01G1.Areas.Seguranca.Models
     {
         public Papel() : base() { }
         public Papel(string name) : base(name) { }
+
+        public IEnumerable<object> Users { get; internal set; }
     }
 }
